@@ -2,7 +2,7 @@
 
 **Forge Them'All** (id `forge-them-all`) est un futur module **Foundry VTT v14** destiné au meneur de jeu : préparation et conduite de campagnes et de scénarios, suivi du temps, estimation des rencontres et gestion des révélations faites aux joueurs.
 
-> **Statut : conception.** Aucune ligne de code n'est encore écrite. Le module reprend les idées de l'ancien Atelier intégré au système Real World Fantasy (v0.1.451 / v0.1.475), mais il est reconstruit de zéro et ne dépend plus du système de jeu actif.
+> **Statut : conception.** Seul un socle de navigation (v0.0.2) existe. Le module reprend les idées de l'ancien Atelier intégré au système Real World Fantasy (v0.1.451 / v0.1.475), mais il est reconstruit de zéro et ne dépend plus du système de jeu actif.
 
 ## Principes
 
@@ -55,3 +55,7 @@ Rule Them'All reste propriétaire de la création et de la synchronisation des c
 - Consolidation fonctionnelle des six onglets
 - Carnet d'enquête des PJ, référentiel technique v0.1
 - Rule Them'All, exigences et contrat d'intégration v0.1
+
+## Contenu du dépôt
+
+Le dossier [`forge-them-all/`](forge-them-all/) contient le socle du module (v0.0.2, prototype de navigation ApplicationV2 sans CSS). Pour l'installer, copier ce dossier dans `Data/modules/` afin d'obtenir `Data/modules/forge-them-all/module.json`.

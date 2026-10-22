@@ -1,0 +1,25 @@
+<section aria-label="Éditeur de scénario">
+  <nav aria-label="Onglets de l'éditeur de scénario">
+    {{#each tabs}}
+      <button type="button" data-action="selectEditorTab" data-tab="{{id}}" aria-pressed="{{active}}">{{label}}</button>
+    {{/each}}
+  </nav>
+  <hr>
+  <h2>{{selectedLabel}}</h2>
+  <table>
+    <thead><tr><th scope="col">Navigation contextuelle</th><th scope="col">Zone d'édition</th><th scope="col">Catalogue permanent des ressources</th></tr></thead>
+    <tbody><tr>
+      <td><p>Organisation libre par dossiers (non implémentée)</p></td>
+      <td>
+        {{#if isWriting}}<p>Scènes narratives : Description / Déroulement, Notes MJ, Texte joueurs.</p>{{/if}}
+        {{#if isMaps}}<p>Cartes géographiques et scènes Foundry : liens et aperçu.</p>{{/if}}
+        {{#if isSession}}<p>Pilotage de séance : scène en cours, notes rapides et événements.</p>{{/if}}
+        {{#if isTime}}<p>Horloge narrative, événements prévus/survenus, liste et frise.</p>{{/if}}
+        {{#if isEncounters}}<p>Puissance PJ et PNJ alliés, menace adverse, Mettre en scène.</p>{{/if}}
+        {{#if isInvestigation}}<p>Révélations, matrice de connaissances, supervision des Carnets.</p>{{/if}}
+        <p><small>Prototype de navigation uniquement : aucune fonction métier active.</small></p>
+      </td>
+      <td><p>PNJ · Contacts · Objets · Indices · Documents · Images · Lieux · Fantaisies (si activées)</p></td>
+    </tr></tbody>
+  </table>
+</section>

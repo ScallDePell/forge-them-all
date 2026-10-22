@@ -1,0 +1,26 @@
+<section aria-label="Accueil Forge Them'All">
+  <nav aria-label="Espaces de Forge Them'All">
+    {{#each tabs}}
+      <button type="button" data-action="selectMainTab" data-tab="{{id}}" aria-pressed="{{active}}">{{label}}</button>
+    {{/each}}
+  </nav>
+  <hr>
+  {{#if showFantasies}}
+    <h2>Fantaisies</h2>
+    <p>{{rtaStatus}}</p>
+    <table><thead><tr><th>Grandes Fantaisies</th><th>Fantaisies</th><th>Détails et ressources</th></tr></thead>
+      <tbody><tr><td>Catalogue non connecté</td><td>Lecture seule non connectée</td><td>La vérité · Dans le monde · Introduire et révéler · Faire jouer · Croisements · Ressources associées</td></tr></tbody></table>
+  {{/if}}
+  {{#if showLibrary}}
+    <h2>Bibliothèque de scénarios</h2>
+    <p>Liste de scénarios non connectée. Cette version ne crée ni ne modifie de données de campagne.</p>
+    <button type="button" data-action="openEditor">Ouvrir le prototype de l'éditeur</button>
+  {{/if}}
+  {{#if showCampaigns}}
+    <h2>Gestion des campagnes</h2>
+    <p>Vue de gestion des campagnes non connectée.</p>
+    <button type="button" data-action="openEditor">Ouvrir le prototype de l'éditeur</button>
+  {{/if}}
+  <hr>
+  <p><small>{{notice}}</small></p>
+</section>
