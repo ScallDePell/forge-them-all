@@ -1,1 +1,162 @@
-{}
+{
+  "FTA": {
+    "Common": {
+      "Search": "Rechercher…",
+      "NotConnected": "Non connecté dans cette version.",
+      "NotImplemented": "Non implémenté dans cette version",
+      "Notice": "Socle technique : aucune donnée de jeu n'est lue ni écrite, les commandes d'édition ne sont pas encore actives.",
+      "Prototype": "Prototype",
+      "ReadOnly": "Lecture seule",
+      "DisplayMode": "Mode d'affichage",
+      "Tiles": "Tuiles",
+      "Lines": "Lignes"
+    },
+    "Panes": {
+      "Resize": "Glisser pour régler la largeur ; double clic pour la largeur d'origine",
+      "Hide": { "left": "Masquer la navigation", "right": "Masquer le catalogue" },
+      "Show": { "left": "Afficher la navigation", "right": "Afficher le catalogue" }
+    },
+    "Rta": {
+      "ReadyHint": "Rule Them'All est actif et son API est disponible.",
+      "MissingHint": "Rule Them'All est absent ou inactif : seules les Fantaisies en dépendent, le reste du module fonctionne."
+    },
+    "Home": {
+      "Label": "Accueil Forge Them'All",
+      "Subtitle": "Atelier du MJ : Fantaisies, scénarios et campagnes",
+      "TabsLabel": "Espaces de Forge Them'All",
+      "Tabs": { "Fantasies": "Fantaisies", "Library": "Bibliothèque de scénarios", "Campaigns": "Gestion des campagnes" }
+    },
+    "Fantasies": {
+      "Groups": "Grandes Fantaisies",
+      "Sheet": "Fantaisie",
+      "Truth": "La vérité",
+      "World": "Dans le monde",
+      "Reveal": "Introduire et révéler",
+      "Play": "Faire jouer",
+      "Crossings": "Croisements",
+      "Resources": "Ressources associées",
+      "ResourcesHint": "Pouvoirs, PNJ, objets… liés à la Fantaisie sélectionnée.",
+      "WaitingContract": "Rule Them'All détecté. Catalogue en attente de son contrat public.",
+      "NoRta": "Rule Them'All indisponible : catalogue des Fantaisies non chargé."
+    },
+    "Library": {
+      "Search": "Rechercher par titre, pitch ou résumé…",
+      "New": "Scénario",
+      "Open": "Ouvrir l'éditeur",
+      "Prototype": "Scénario de démonstration",
+      "Empty": "Aucun scénario source enregistré : la bibliothèque n'est pas encore connectée."
+    },
+    "Campaigns": {
+      "List": "Campagnes",
+      "New": "Nouvelle campagne",
+      "Empty": "Aucune campagne.",
+      "Sheet": "Fiche de campagne",
+      "Identity": "Image, titre et description",
+      "Assignments": "Joueurs et PJ affectés",
+      "Scenarios": "Scénarios de la campagne",
+      "OpenPrototype": "Ouvrir une instance (prototype)",
+      "Drawers": "Tiroirs",
+      "SourceScenarios": "Scénarios sources",
+      "Players": "Joueurs",
+      "Characters": "Personnages PJ"
+    },
+    "Editor": {
+      "Title": "Éditeur de scénario",
+      "Label": "Éditeur de scénario",
+      "Untitled": "Scénario sans titre",
+      "Subtitle": "Éditeur commun aux scénarios sources et aux instances de campagne",
+      "TabsLabel": "Onglets de l'éditeur de scénario",
+      "Navigation": "Navigation de l'onglet",
+      "PartyBar": "PJ de la campagne",
+      "Mode": { "Source": "Scénario source", "Instance": "Instance de campagne" },
+      "Tabs": {
+        "Writing": "Écriture",
+        "Maps": "Cartes",
+        "Session": "Partie",
+        "Time": "Temps",
+        "Encounters": "Rencontres",
+        "Investigation": "Enquête & Pistes"
+      }
+    },
+    "Catalogue": {
+      "Title": "Catalogue des ressources",
+      "Npcs": "PNJ",
+      "Contacts": "Contacts",
+      "Items": "Objets",
+      "Clues": "Indices",
+      "Documents": "Documents",
+      "Images": "Images",
+      "Places": "Lieux",
+      "Fantasies": "Fantaisies"
+    },
+    "Writing": {
+      "Plan": "Dossiers et scènes",
+      "NewScene": "Nouvelle scène",
+      "PlanEmpty": "Aucune scène. Les dossiers sont facultatifs et aucun acte n'est imposé.",
+      "NoScene": "Aucune scène sélectionnée",
+      "NoSceneHint": "Sélectionner une scène ne change ni la scène en cours de jeu ni la scène Foundry des joueurs.",
+      "Description": "Description / Déroulement MJ",
+      "DescriptionHint": "Le fil de la scène, pour le MJ.",
+      "GmNotes": "Notes privées MJ",
+      "GmNotesHint": "Jamais transmises aux joueurs.",
+      "PlayerText": "Texte joueurs",
+      "PlayerTextHint": "Jamais révélé automatiquement.",
+      "Visuals": "Supports visuels",
+      "VisualsHint": "Images en miniatures, ordre modifiable."
+    },
+    "Maps": {
+      "List": "Cartes",
+      "Link": "Lier une carte",
+      "Empty": "Aucune carte : image ou Scene Foundry, indépendante des scènes narratives.",
+      "Sheet": "Titre, description et aperçu",
+      "SheetHint": "L'édition technique (murs, grille, lumière) reste dans Foundry.",
+      "Associations": "Associations",
+      "AssociationsHint": "Retirer une association ne supprime jamais la Scene ni le fichier."
+    },
+    "Session": {
+      "Scenes": "Scènes",
+      "NoCurrent": "Aucune scène en cours : c'est un état valide.",
+      "QuickNote": "Note rapide",
+      "Viewed": "Scène consultée",
+      "ViewedHint": "Distincte de la scène en cours ; seule « Définir comme scène en cours » change celle-ci.",
+      "Notes": "Notes de séance",
+      "NotesHint": "Brutes, rattachées, converties ou traitées ; la note source est conservée.",
+      "Log": "Consigner un événement",
+      "LogHint": "Produit un fait narratif confirmé pour la Timeline."
+    },
+    "Time": {
+      "Events": "Événements",
+      "NewEvent": "Nouvel événement",
+      "Now": "MAINTENANT",
+      "NowUnset": "Horloge de campagne non définie",
+      "Empty": "Aucun événement prévu ni survenu.",
+      "Selected": "Événement sélectionné",
+      "SelectedHint": "Prévu ou survenu, date précise, période approximative ou inconnue.",
+      "Views": "Liste et frise",
+      "ViewsHint": "Une seule source ; les périodes qui se chevauchent sont montrées comme telles.",
+      "Advance": "Faire passer le temps",
+      "AdvanceHint": "Prévisualisation et confirmation de chaque effet avant application."
+    },
+    "Encounters": {
+      "List": "Rencontres",
+      "New": "Nouvelle rencontre",
+      "Empty": "Aucune rencontre enregistrée.",
+      "Party": "Puissance PJ",
+      "PartyHint": "Participants présents et PNJ alliés éventuels.",
+      "Opposition": "Confrontation",
+      "OppositionHint": "Composition adverse, quantités et estimation de difficulté.",
+      "Stage": "Mettre en scène"
+    },
+    "Investigation": {
+      "Reveals": "Révélations et ensembles",
+      "NewBundle": "Nouvel ensemble",
+      "Empty": "Aucun fait révélable ni ensemble préparé.",
+      "Matrix": "Matrice des connaissances PJ",
+      "MatrixHint": "Ce que chaque PJ sait officiellement, fait par fait.",
+      "Journal": "Journal des révélations",
+      "JournalHint": "Émetteur, destinataire, origine, horodatage et révocation.",
+      "Notebooks": "Carnets des joueurs",
+      "NotebooksHint": "Supervision en lecture seule."
+    }
+  }
+}

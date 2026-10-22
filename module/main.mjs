@@ -1,4 +1,4 @@
-import { AtelierHome } from "./ui.mjs";
+import { AtelierHome, refreshOpenWindows } from "./ui.mjs";
 
 const ID = "forge-them-all";
 let mainWindow = null;
@@ -15,7 +15,7 @@ function openAtelier() {
     return null;
   }
   mainWindow ??= new AtelierHome();
-  mainWindow.render(true);
+  mainWindow.render({ force: true });
   return mainWindow;
 }
 
@@ -24,7 +24,7 @@ Hooks.once("init", () => {
     name: "Activer les Fantaisies",
     hint: "Seul le volet Fantaisies peut être désactivé. Les autres fonctions restent disponibles même sans Rule Them'All.",
     scope: "world", config: true, type: Boolean, default: true,
-    restricted: true
+    onChange: refreshOpenWindows
   });
   game.settings.register(ID, "lastMainTab", {
     scope: "client", config: false, type: String, default: "fantasies"
@@ -36,7 +36,7 @@ Hooks.once("ready", () => {
     open: openAtelier,
     getRuleThemAll,
     get fantasiesEnabled() { return game.settings.get(ID, "fantasiesEnabled"); },
-    version: "0.0.2"
+    version: game.modules.get(ID)?.version ?? ""
   });
   // Integration can be called from macro: game.forgeThemAll.open()
   if (game.user?.isGM) ui.notifications?.info("Forge Them'All prêt : utilisez la macro game.forgeThemAll.open().");

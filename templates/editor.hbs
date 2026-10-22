@@ -1,25 +1,107 @@
-<section aria-label="Éditeur de scénario">
-  <nav aria-label="Onglets de l'éditeur de scénario">
-    {{#each tabs}}
-      <button type="button" data-action="selectEditorTab" data-tab="{{id}}" aria-pressed="{{active}}">{{label}}</button>
-    {{/each}}
+<section class="fta-app fta-editor" data-panes-root aria-label="{{localize "FTA.Editor.Label"}}">
+  {{#*inline "paneResizer"}}<div class="fta-resizer fta-resizer--{{pane}}" data-pane-resizer="{{pane}}" role="separator" aria-orientation="vertical" tabindex="0" title="{{localize "FTA.Panes.Resize"}}"><button type="button" class="fta-resizer__toggle" data-pane-toggle="{{pane}}"><i class="fa-solid" aria-hidden="true"></i></button></div>{{/inline}}
+  {{#*inline "leftHeader"}}<div class="fta-pane__header"><h3>{{localize title}}</h3>{{#if add}}<button type="button" class="fta-action" disabled title="{{localize "FTA.Common.NotImplemented"}}" aria-label="{{localize add}}"><i class="fa-solid fa-plus"></i></button>{{/if}}</div>{{/inline}}
+  {{#*inline "card"}}<section class="fta-card"><h4><i class="fa-solid {{icon}}" aria-hidden="true"></i> {{localize title}}</h4><p class="fta-muted">{{localize text}}</p></section>{{/inline}}
+  <header class="fta-header">
+    <div class="fta-header__identity">
+      <i class="fa-solid fa-feather fta-header__icon" aria-hidden="true"></i>
+      <div><h2>{{localize "FTA.Editor.Untitled"}}</h2><p>{{localize "FTA.Editor.Subtitle"}}</p></div>
+    </div>
+    <div class="fta-header__badges">
+      <span class="fta-badge{{#if isInstance}} fta-badge--success{{/if}}">{{modeLabel}}</span>
+      <span class="fta-badge">{{localize "FTA.Common.Prototype"}}</span>
+    </div>
+  </header>
+
+  <nav class="tabs fta-tabs" data-group="editor" aria-label="{{localize "FTA.Editor.TabsLabel"}}">
+    {{#each tabs}}<button type="button" class="fta-tab{{#if active}} active{{/if}}" data-action="tab" data-group="editor" data-tab="{{id}}" aria-pressed="{{active}}"><i class="fa-solid {{icon}}" aria-hidden="true"></i><span>{{label}}</span></button>{{/each}}
   </nav>
-  <hr>
-  <h2>{{selectedLabel}}</h2>
-  <table>
-    <thead><tr><th scope="col">Navigation contextuelle</th><th scope="col">Zone d'édition</th><th scope="col">Catalogue permanent des ressources</th></tr></thead>
-    <tbody><tr>
-      <td><p>Organisation libre par dossiers (non implémentée)</p></td>
-      <td>
-        {{#if isWriting}}<p>Scènes narratives : Description / Déroulement, Notes MJ, Texte joueurs.</p>{{/if}}
-        {{#if isMaps}}<p>Cartes géographiques et scènes Foundry : liens et aperçu.</p>{{/if}}
-        {{#if isSession}}<p>Pilotage de séance : scène en cours, notes rapides et événements.</p>{{/if}}
-        {{#if isTime}}<p>Horloge narrative, événements prévus/survenus, liste et frise.</p>{{/if}}
-        {{#if isEncounters}}<p>Puissance PJ et PNJ alliés, menace adverse, Mettre en scène.</p>{{/if}}
-        {{#if isInvestigation}}<p>Révélations, matrice de connaissances, supervision des Carnets.</p>{{/if}}
-        <p><small>Prototype de navigation uniquement : aucune fonction métier active.</small></p>
-      </td>
-      <td><p>PNJ · Contacts · Objets · Indices · Documents · Images · Lieux · Fantaisies (si activées)</p></td>
-    </tr></tbody>
-  </table>
+
+  <div class="fta-panes" data-panes>
+    <aside class="fta-pane fta-pane--left" aria-label="{{localize "FTA.Editor.Navigation"}}">
+      <div class="tab{{#if active.writing}} active{{/if}}" data-group="editor" data-tab="writing">
+        {{> leftHeader title="FTA.Writing.Plan" add="FTA.Writing.NewScene"}}
+        <input type="search" placeholder="{{localize "FTA.Common.Search"}}" disabled>
+        <p class="fta-empty">{{localize "FTA.Writing.PlanEmpty"}}</p>
+      </div>
+      <div class="tab{{#if active.maps}} active{{/if}}" data-group="editor" data-tab="maps">
+        {{> leftHeader title="FTA.Maps.List" add="FTA.Maps.Link"}}
+        <p class="fta-empty">{{localize "FTA.Maps.Empty"}}</p>
+      </div>
+      <div class="tab{{#if active.session}} active{{/if}}" data-group="editor" data-tab="session">
+        {{> leftHeader title="FTA.Session.Scenes"}}
+        <p class="fta-empty">{{localize "FTA.Session.NoCurrent"}}</p>
+        <button type="button" disabled title="{{localize "FTA.Common.NotImplemented"}}"><i class="fa-solid fa-note-sticky" aria-hidden="true"></i> {{localize "FTA.Session.QuickNote"}}</button>
+      </div>
+      <div class="tab{{#if active.time}} active{{/if}}" data-group="editor" data-tab="time">
+        {{> leftHeader title="FTA.Time.Events" add="FTA.Time.NewEvent"}}
+        <div class="fta-now"><span class="fta-now__label">{{localize "FTA.Time.Now"}}</span><span class="fta-muted">{{localize "FTA.Time.NowUnset"}}</span></div>
+        <p class="fta-empty">{{localize "FTA.Time.Empty"}}</p>
+      </div>
+      <div class="tab{{#if active.encounters}} active{{/if}}" data-group="editor" data-tab="encounters">
+        {{> leftHeader title="FTA.Encounters.List" add="FTA.Encounters.New"}}
+        <p class="fta-empty">{{localize "FTA.Encounters.Empty"}}</p>
+      </div>
+      <div class="tab{{#if active.investigation}} active{{/if}}" data-group="editor" data-tab="investigation">
+        {{> leftHeader title="FTA.Investigation.Reveals" add="FTA.Investigation.NewBundle"}}
+        <p class="fta-empty">{{localize "FTA.Investigation.Empty"}}</p>
+      </div>
+    </aside>
+    {{> paneResizer pane="left"}}
+    <main class="fta-pane fta-pane--center">
+      <div class="tab{{#if active.writing}} active{{/if}}" data-group="editor" data-tab="writing">
+        <div class="fta-banner"><div class="fta-banner__image"><i class="fa-solid fa-image" aria-hidden="true"></i></div><div><h3>{{localize "FTA.Writing.NoScene"}}</h3><p class="fta-muted">{{localize "FTA.Writing.NoSceneHint"}}</p></div></div>
+        <div class="fta-cards fta-cards--grid">
+          {{> card icon="fa-scroll" title="FTA.Writing.Description" text="FTA.Writing.DescriptionHint"}}
+          {{> card icon="fa-user-secret" title="FTA.Writing.GmNotes" text="FTA.Writing.GmNotesHint"}}
+          {{> card icon="fa-users" title="FTA.Writing.PlayerText" text="FTA.Writing.PlayerTextHint"}}
+          {{> card icon="fa-images" title="FTA.Writing.Visuals" text="FTA.Writing.VisualsHint"}}
+        </div>
+      </div>
+      <div class="tab{{#if active.maps}} active{{/if}}" data-group="editor" data-tab="maps">
+        <div class="fta-cards">
+          {{> card icon="fa-map" title="FTA.Maps.Sheet" text="FTA.Maps.SheetHint"}}
+          {{> card icon="fa-link" title="FTA.Maps.Associations" text="FTA.Maps.AssociationsHint"}}
+        </div>
+      </div>
+      <div class="tab{{#if active.session}} active{{/if}}" data-group="editor" data-tab="session">
+        <div class="fta-cards">
+          {{> card icon="fa-eye" title="FTA.Session.Viewed" text="FTA.Session.ViewedHint"}}
+          {{> card icon="fa-note-sticky" title="FTA.Session.Notes" text="FTA.Session.NotesHint"}}
+          {{> card icon="fa-stamp" title="FTA.Session.Log" text="FTA.Session.LogHint"}}
+        </div>
+      </div>
+      <div class="tab{{#if active.time}} active{{/if}}" data-group="editor" data-tab="time">
+        <div class="fta-cards">
+          {{> card icon="fa-calendar-day" title="FTA.Time.Selected" text="FTA.Time.SelectedHint"}}
+          {{> card icon="fa-timeline" title="FTA.Time.Views" text="FTA.Time.ViewsHint"}}
+          {{> card icon="fa-forward" title="FTA.Time.Advance" text="FTA.Time.AdvanceHint"}}
+        </div>
+      </div>
+      <div class="tab{{#if active.encounters}} active{{/if}}" data-group="editor" data-tab="encounters">
+        <div class="fta-cards fta-cards--grid">
+          {{> card icon="fa-shield-halved" title="FTA.Encounters.Party" text="FTA.Encounters.PartyHint"}}
+          {{> card icon="fa-skull" title="FTA.Encounters.Opposition" text="FTA.Encounters.OppositionHint"}}
+        </div>
+        <div class="fta-actions-row"><button type="button" disabled title="{{localize "FTA.Common.NotImplemented"}}"><i class="fa-solid fa-chess-board" aria-hidden="true"></i> {{localize "FTA.Encounters.Stage"}}</button></div>
+      </div>
+      <div class="tab{{#if active.investigation}} active{{/if}}" data-group="editor" data-tab="investigation">
+        <div class="fta-cards">
+          {{> card icon="fa-table-cells" title="FTA.Investigation.Matrix" text="FTA.Investigation.MatrixHint"}}
+          {{> card icon="fa-clock-rotate-left" title="FTA.Investigation.Journal" text="FTA.Investigation.JournalHint"}}
+          {{> card icon="fa-book-open-reader" title="FTA.Investigation.Notebooks" text="FTA.Investigation.NotebooksHint"}}
+        </div>
+      </div>
+    </main>
+    {{> paneResizer pane="right"}}
+    <aside class="fta-pane fta-pane--right" aria-label="{{localize "FTA.Catalogue.Title"}}">
+      <div class="fta-pane__header"><h3>{{localize "FTA.Catalogue.Title"}}</h3></div>
+      <input type="search" placeholder="{{localize "FTA.Common.Search"}}" disabled>
+      {{#each catalogue}}
+        <details class="fta-drawer"{{#if @first}} open{{/if}}><summary><i class="fa-solid {{icon}}" aria-hidden="true"></i><span>{{label}}</span><span class="fta-count">0</span></summary><p class="fta-empty">{{localize "FTA.Common.NotConnected"}}</p></details>
+      {{/each}}
+    </aside>
+  </div>
+
+  {{#if isInstance}}<footer class="fta-party-bar"><span class="fta-party-bar__label"><i class="fa-solid fa-users" aria-hidden="true"></i> {{localize "FTA.Editor.PartyBar"}}</span><span class="fta-muted">{{localize "FTA.Common.NotConnected"}}</span></footer>{{/if}}
 </section>

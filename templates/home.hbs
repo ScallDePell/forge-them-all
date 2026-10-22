@@ -1,26 +1,97 @@
-<section aria-label="Accueil Forge Them'All">
-  <nav aria-label="Espaces de Forge Them'All">
-    {{#each tabs}}
-      <button type="button" data-action="selectMainTab" data-tab="{{id}}" aria-pressed="{{active}}">{{label}}</button>
-    {{/each}}
+<section class="fta-app fta-home" data-panes-root aria-label="{{localize "FTA.Home.Label"}}">
+  {{#*inline "paneResizer"}}<div class="fta-resizer fta-resizer--{{pane}}" data-pane-resizer="{{pane}}" role="separator" aria-orientation="vertical" tabindex="0" title="{{localize "FTA.Panes.Resize"}}"><button type="button" class="fta-resizer__toggle" data-pane-toggle="{{pane}}"><i class="fa-solid" aria-hidden="true"></i></button></div>{{/inline}}
+  <header class="fta-header">
+    <div class="fta-header__identity">
+      <i class="fa-solid fa-hammer fta-header__icon" aria-hidden="true"></i>
+      <div><h2>Forge Them'All</h2><p>{{localize "FTA.Home.Subtitle"}}</p></div>
+    </div>
+    <div class="fta-header__badges">
+      <span class="fta-badge fta-badge--version"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> {{version}}</span>
+      {{#if rtaReady}}<span class="fta-badge fta-badge--success" title="{{localize "FTA.Rta.ReadyHint"}}"><i class="fa-solid fa-link" aria-hidden="true"></i> Rule Them'All</span>
+      {{else}}<span class="fta-badge" title="{{localize "FTA.Rta.MissingHint"}}"><i class="fa-solid fa-link-slash" aria-hidden="true"></i> Rule Them'All</span>{{/if}}
+    </div>
+  </header>
+
+  <nav class="tabs fta-tabs" data-group="main" aria-label="{{localize "FTA.Home.TabsLabel"}}">
+    {{#each tabs}}<button type="button" class="fta-tab{{#if active}} active{{/if}}" data-action="tab" data-group="main" data-tab="{{id}}" aria-pressed="{{active}}"><i class="fa-solid {{icon}}" aria-hidden="true"></i><span>{{label}}</span></button>{{/each}}
   </nav>
-  <hr>
-  {{#if showFantasies}}
-    <h2>Fantaisies</h2>
-    <p>{{rtaStatus}}</p>
-    <table><thead><tr><th>Grandes Fantaisies</th><th>Fantaisies</th><th>Détails et ressources</th></tr></thead>
-      <tbody><tr><td>Catalogue non connecté</td><td>Lecture seule non connectée</td><td>La vérité · Dans le monde · Introduire et révéler · Faire jouer · Croisements · Ressources associées</td></tr></tbody></table>
+
+  {{#if fantasiesEnabled}}
+  <div class="tab fta-tab-body{{#if active.fantasies}} active{{/if}}" data-group="main" data-tab="fantasies">
+    <div class="fta-panes" data-panes>
+      <aside class="fta-pane fta-pane--left" aria-label="{{localize "FTA.Fantasies.Groups"}}">
+        <div class="fta-pane__header"><h3>{{localize "FTA.Fantasies.Groups"}}</h3></div>
+        <input type="search" placeholder="{{localize "FTA.Common.Search"}}" disabled>
+        <p class="fta-empty"><i class="fa-solid fa-plug-circle-xmark" aria-hidden="true"></i> {{#if rtaReady}}{{localize "FTA.Fantasies.WaitingContract"}}{{else}}{{localize "FTA.Fantasies.NoRta"}}{{/if}}</p>
+      </aside>
+      {{> paneResizer pane="left"}}
+      <main class="fta-pane fta-pane--center">
+        <div class="fta-pane__header"><h3>{{localize "FTA.Fantasies.Sheet"}}</h3><span class="fta-badge">{{localize "FTA.Common.ReadOnly"}}</span></div>
+        <div class="fta-cards">
+          <section class="fta-card"><h4><i class="fa-solid fa-eye" aria-hidden="true"></i> {{localize "FTA.Fantasies.Truth"}}</h4><p class="fta-muted">{{localize "FTA.Common.NotConnected"}}</p></section>
+          <section class="fta-card"><h4><i class="fa-solid fa-earth-europe" aria-hidden="true"></i> {{localize "FTA.Fantasies.World"}}</h4><p class="fta-muted">{{localize "FTA.Common.NotConnected"}}</p></section>
+          <section class="fta-card"><h4><i class="fa-solid fa-door-open" aria-hidden="true"></i> {{localize "FTA.Fantasies.Reveal"}}</h4><p class="fta-muted">{{localize "FTA.Common.NotConnected"}}</p></section>
+          <section class="fta-card"><h4><i class="fa-solid fa-masks-theater" aria-hidden="true"></i> {{localize "FTA.Fantasies.Play"}}</h4><p class="fta-muted">{{localize "FTA.Common.NotConnected"}}</p></section>
+          <section class="fta-card"><h4><i class="fa-solid fa-diagram-project" aria-hidden="true"></i> {{localize "FTA.Fantasies.Crossings"}}</h4><p class="fta-muted">{{localize "FTA.Common.NotConnected"}}</p></section>
+        </div>
+      </main>
+      {{> paneResizer pane="right"}}
+      <aside class="fta-pane fta-pane--right" aria-label="{{localize "FTA.Fantasies.Resources"}}">
+        <div class="fta-pane__header"><h3>{{localize "FTA.Fantasies.Resources"}}</h3></div>
+        <p class="fta-empty">{{localize "FTA.Fantasies.ResourcesHint"}}</p>
+      </aside>
+    </div>
+  </div>
   {{/if}}
-  {{#if showLibrary}}
-    <h2>Bibliothèque de scénarios</h2>
-    <p>Liste de scénarios non connectée. Cette version ne crée ni ne modifie de données de campagne.</p>
-    <button type="button" data-action="openEditor">Ouvrir le prototype de l'éditeur</button>
-  {{/if}}
-  {{#if showCampaigns}}
-    <h2>Gestion des campagnes</h2>
-    <p>Vue de gestion des campagnes non connectée.</p>
-    <button type="button" data-action="openEditor">Ouvrir le prototype de l'éditeur</button>
-  {{/if}}
-  <hr>
-  <p><small>{{notice}}</small></p>
+
+  <div class="tab fta-tab-body{{#if active.library}} active{{/if}}" data-group="main" data-tab="library">
+    <div class="fta-single">
+      <div class="fta-toolbar">
+        <input type="search" class="fta-toolbar__search" placeholder="{{localize "FTA.Library.Search"}}" disabled>
+        <div class="fta-display-switch" role="group" aria-label="{{localize "FTA.Common.DisplayMode"}}">
+          <button type="button" data-action="setDisplayMode" data-mode="tiles" class="{{#if displayTiles}}is-active{{/if}}" aria-pressed="{{displayTiles}}" title="{{localize "FTA.Common.Tiles"}}" aria-label="{{localize "FTA.Common.Tiles"}}"><i class="fa-solid fa-grip"></i></button>
+          <button type="button" data-action="setDisplayMode" data-mode="lines" class="{{#if displayLines}}is-active{{/if}}" aria-pressed="{{displayLines}}" title="{{localize "FTA.Common.Lines"}}" aria-label="{{localize "FTA.Common.Lines"}}"><i class="fa-solid fa-list"></i></button>
+        </div>
+        <button type="button" disabled title="{{localize "FTA.Common.NotImplemented"}}"><i class="fa-solid fa-plus" aria-hidden="true"></i> {{localize "FTA.Library.New"}}</button>
+      </div>
+      <div class="fta-single__scroll">
+        <div class="fta-tiles{{#if displayLines}} fta-tiles--lines{{/if}}" role="list">
+          <article class="fta-tile" role="listitem">
+            <button type="button" class="fta-tile__title" data-action="openEditor" data-mode="source">{{localize "FTA.Library.Prototype"}}</button>
+            <div class="fta-tile__badges"><span class="fta-badge">{{localize "FTA.Editor.Mode.Source"}}</span><span class="fta-badge">{{localize "FTA.Common.Prototype"}}</span></div>
+            <div class="fta-tile__actions"><button type="button" class="fta-action" data-action="openEditor" data-mode="source" data-tooltip="{{localize "FTA.Library.Open"}}" aria-label="{{localize "FTA.Library.Open"}}"><i class="fa-solid fa-pen"></i></button></div>
+          </article>
+        </div>
+        <p class="fta-empty">{{localize "FTA.Library.Empty"}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab fta-tab-body{{#if active.campaigns}} active{{/if}}" data-group="main" data-tab="campaigns">
+    <div class="fta-panes" data-panes>
+      <aside class="fta-pane fta-pane--left" aria-label="{{localize "FTA.Campaigns.List"}}">
+        <div class="fta-pane__header"><h3>{{localize "FTA.Campaigns.List"}}</h3><button type="button" class="fta-action" disabled title="{{localize "FTA.Common.NotImplemented"}}" aria-label="{{localize "FTA.Campaigns.New"}}"><i class="fa-solid fa-plus"></i></button></div>
+        <p class="fta-empty">{{localize "FTA.Campaigns.Empty"}}</p>
+      </aside>
+      {{> paneResizer pane="left"}}
+      <main class="fta-pane fta-pane--center">
+        <div class="fta-pane__header"><h3>{{localize "FTA.Campaigns.Sheet"}}</h3></div>
+        <div class="fta-cards">
+          <section class="fta-card"><h4><i class="fa-solid fa-id-card" aria-hidden="true"></i> {{localize "FTA.Campaigns.Identity"}}</h4><p class="fta-muted">{{localize "FTA.Common.NotConnected"}}</p></section>
+          <section class="fta-card"><h4><i class="fa-solid fa-users" aria-hidden="true"></i> {{localize "FTA.Campaigns.Assignments"}}</h4><p class="fta-muted">{{localize "FTA.Common.NotConnected"}}</p></section>
+          <section class="fta-card"><h4><i class="fa-solid fa-book-open" aria-hidden="true"></i> {{localize "FTA.Campaigns.Scenarios"}}</h4><p class="fta-muted">{{localize "FTA.Common.NotConnected"}}</p>
+            <button type="button" data-action="openEditor" data-mode="instance"><i class="fa-solid fa-pen" aria-hidden="true"></i> {{localize "FTA.Campaigns.OpenPrototype"}}</button></section>
+        </div>
+      </main>
+      {{> paneResizer pane="right"}}
+      <aside class="fta-pane fta-pane--right" aria-label="{{localize "FTA.Campaigns.Drawers"}}">
+        <div class="fta-pane__header"><h3>{{localize "FTA.Campaigns.Drawers"}}</h3></div>
+        <details class="fta-drawer" open><summary><i class="fa-solid fa-book" aria-hidden="true"></i><span>{{localize "FTA.Campaigns.SourceScenarios"}}</span><span class="fta-count">0</span></summary><p class="fta-empty">{{localize "FTA.Common.NotConnected"}}</p></details>
+        <details class="fta-drawer"><summary><i class="fa-solid fa-user" aria-hidden="true"></i><span>{{localize "FTA.Campaigns.Players"}}</span><span class="fta-count">0</span></summary><p class="fta-empty">{{localize "FTA.Common.NotConnected"}}</p></details>
+        <details class="fta-drawer"><summary><i class="fa-solid fa-user-shield" aria-hidden="true"></i><span>{{localize "FTA.Campaigns.Characters"}}</span><span class="fta-count">0</span></summary><p class="fta-empty">{{localize "FTA.Common.NotConnected"}}</p></details>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="fta-footer"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> {{localize "FTA.Common.Notice"}}</footer>
 </section>
