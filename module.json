@@ -2,11 +2,40 @@
   "id": "forge-them-all",
   "type": "module",
   "title": "Forge Them'All",
-  "description": "Socle ApplicationV2 universel pour Foundry VTT v14. Prototype de navigation sans CSS.",
-  "version": "0.0.2",
-  "authors": [{"name": "Forge Them'All"}],
-  "compatibility": {"minimum": "14", "verified": "14"},
-  "esmodules": ["module/main.mjs"],
-  "languages": [{"lang": "fr", "name": "Français", "path": "lang/fr.json"}],
-  "relationships": {"recommends": [{"id": "rule-them-all", "type": "module", "reason": "Catalogue et édition des Fantaisies via les API publiques, lorsque disponibles."}]}
+  "description": "Atelier du MJ universel pour Foundry VTT v14 : Fantaisies, bibliothèque de scénarios et campagnes. Prototype de navigation, identité visuelle de Rule Them'All.",
+  "version": "0.0.3",
+  "authors": [
+    {
+      "name": "Luca",
+      "url": "https://github.com/ScallDePell"
+    }
+  ],
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14"
+  },
+  "esmodules": [
+    "module/main.mjs"
+  ],
+  "styles": [
+    "styles/tokens.css",
+    "styles/layout.css",
+    "styles/components.css"
+  ],
+  "languages": [
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": "lang/fr.json"
+    }
+  ],
+  "relationships": {
+    "recommends": [
+      {
+        "id": "rule-them-all",
+        "type": "module",
+        "reason": "Catalogue et édition des Fantaisies via les API publiques, lorsque disponibles."
+      }
+    ]
+  }
 }

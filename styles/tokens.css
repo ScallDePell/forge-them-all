@@ -1,0 +1,60 @@
+/* Forge Them'All — tokens.css : échelle et couleurs, reprises telles quelles du design system de Rule Them'All
+   (rule-them-all/styles/tokens.css, v1.0.20) sous le préfixe --fta-, pour que les deux modules se ressemblent sans
+   dépendre l'un de l'autre. Chaque couleur suit la variable du thème Foundry quand elle existe, avec une seule valeur
+   de repli. L'ordre de chargement (module.json "styles") fait partie de la cascade. */
+.forge-them-all {
+  --fta-space-1: .125rem;  /* 2px */
+  --fta-space-2: .25rem;   /* 4px */
+  --fta-space-3: .375rem;  /* 6px */
+  --fta-space-4: .5rem;    /* 8px */
+  --fta-space-5: .625rem;  /* 10px */
+  --fta-space-6: .75rem;   /* 12px */
+  --fta-space-8: 1rem;     /* 16px */
+  --fta-space-12: 1.5rem;  /* 24px */
+
+  /* Rythme : trois espacements seulement, horizontaux comme verticaux. */
+  --fta-gap-tight: var(--fta-space-2);
+  --fta-gap-row: var(--fta-space-4);
+  --fta-gap-block: var(--fta-space-6);
+
+  --fta-radius-rail: 2px;
+  --fta-radius-compact: 4px;
+  --fta-radius-control: 5px;
+  --fta-radius-panel: 7px;
+
+  --fta-type-micro: .5625rem;
+  --fta-type-xs: .625rem;
+  --fta-type-sm: .75rem;
+  --fta-type-base: .8125rem;
+  --fta-type-control: .875rem;
+  --fta-type-medium: 1rem;
+  --fta-type-heading: 1.125rem;
+
+  --fta-color-neutral: #666666;
+  --fta-color-border: var(--color-border-light-primary, #777);
+  --fta-color-border-secondary: var(--color-border-light-secondary, #777);
+  --fta-color-border-subtle: var(--color-border-light-2, #555);
+  --fta-color-border-highlight: var(--color-border-highlight, #947f9c);
+  --fta-color-surface: var(--color-cool-5, #17141e);
+  --fta-color-window: var(--background, var(--color-cool-5, #17141e));
+  --fta-color-surface-raised: var(--color-cool-4, rgba(0, 0, 0, .12));
+  --fta-color-text: var(--color-text-primary);
+  --fta-color-text-highlight: var(--color-text-light-highlight, #eee);
+  --fta-color-text-secondary: var(--color-text-light-6, #bcb8bf);
+  --fta-color-accent-warm: var(--color-warm-2, #ee9b3a);
+  --fta-color-success-fill: #28570d;
+  --fta-color-success-text: #e1f4d3;
+  --fta-color-badge-fill: #34303d;
+  --fta-color-badge-text: #ddd;
+  --fta-color-tile: rgba(15, 11, 23, .72);
+  --fta-color-frame: rgba(128, 128, 128, .06);
+  --fta-color-rail: rgba(125, 125, 125, .055);
+
+  /* La couleur propre du module, comme la couleur d'un Ruleset dans RTA : onglets actifs, icônes, barres survolées. */
+  --fta-accent: var(--fta-color-accent-warm);
+
+  /* Largeurs propres des panneaux ; le glisser de leur barre les redéfinit en ligne (module/panes.mjs). */
+  --fta-left-width: 15rem;
+  --fta-right-width: 17rem;
+  --fta-bar-width: var(--fta-space-6);
+}

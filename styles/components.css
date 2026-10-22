@@ -1,0 +1,425 @@
+/* Forge Them'All — components.css : en-tête, onglets, titres de zone, cadres, tuiles, badges, tiroirs.
+   Formes reprises du configurateur de Rule Them'All : en-tête racine (rulesets.css), groupes de l'explorateur
+   (explorer.css), cartes de la page Général (general.css), tuiles de Ruleset et bascule tuiles/lignes (cards.css). */
+
+/* En-tête : identité à gauche, badges à droite, sur une ligne. */
+.fta-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--fta-gap-block);
+  padding-block: var(--fta-space-2) 0;
+}
+
+.fta-header__identity {
+  display: flex;
+  align-items: center;
+  gap: var(--fta-gap-block);
+  min-inline-size: 0;
+}
+
+.fta-header__identity > div { min-inline-size: 0; }
+
+.fta-header__icon {
+  flex: none;
+  font-size: var(--fta-type-heading);
+  color: var(--fta-accent);
+}
+
+.fta-header h2 {
+  margin: 0;
+  border: 0;
+  font-size: var(--fta-type-heading);
+  line-height: 1.3;
+}
+
+.fta-header p {
+  margin: var(--fta-space-1) 0 0;
+  font-size: var(--fta-type-sm);
+  color: var(--fta-color-text-secondary);
+}
+
+.fta-header__badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--fta-gap-tight);
+}
+
+/* Onglets : la rangée de groupes de l'explorateur RTA, à plat. */
+.fta-app nav.fta-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: var(--fta-gap-tight);
+  margin: 0;
+  padding: var(--fta-space-2);
+  border: 0;
+  border-radius: var(--fta-radius-panel);
+  background: var(--fta-color-rail);
+}
+
+.fta-app nav.fta-tabs > .fta-tab {
+  display: inline-flex;
+  flex: 0 1 auto;
+  align-items: center;
+  gap: var(--fta-gap-row);
+  inline-size: auto;
+  min-block-size: 32px;
+  margin: 0;
+  padding: var(--fta-space-3) var(--fta-space-6);
+  border: 1px solid transparent;
+  border-radius: var(--fta-radius-compact);
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  font-size: var(--fta-type-control);
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* Le clic vise toujours le bouton (ApplicationV2 lit data-tab sur la cible). */
+.fta-app nav.fta-tabs > .fta-tab > * { pointer-events: none; }
+
+.fta-app nav.fta-tabs > .fta-tab > i {
+  color: var(--fta-accent);
+  opacity: .85;
+}
+
+.fta-app nav.fta-tabs > .fta-tab:hover {
+  background: color-mix(in srgb, var(--fta-accent) 12%, transparent);
+}
+
+.fta-app nav.fta-tabs > .fta-tab.active {
+  border-color: var(--fta-color-border);
+  background: color-mix(in srgb, var(--fta-accent) 17%, transparent);
+  font-weight: 700;
+}
+
+/* Titre d'une zone : petit, en capitales, comme les sous-titres de l'explorateur. */
+.fta-pane__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--fta-gap-row);
+  min-block-size: 24px;
+}
+
+.fta-pane__header h3 {
+  margin: 0;
+  border: 0;
+  font-size: var(--fta-type-xs);
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--fta-color-text-secondary);
+}
+
+.fta-pane--center > .fta-pane__header h3,
+.fta-pane--center > .tab > .fta-pane__header h3 {
+  font-size: var(--fta-type-sm);
+}
+
+/* Bouton d'action carré (rta-config-action). */
+.fta-action {
+  display: inline-flex;
+  flex: 0 0 23px;
+  align-items: center;
+  justify-content: center;
+  inline-size: 23px;
+  min-inline-size: 23px;
+  block-size: 23px;
+  margin: 0;
+  padding: 0;
+  font-size: var(--fta-type-sm);
+  line-height: 1;
+}
+
+.fta-action > i { margin: 0; pointer-events: none; }
+
+.fta-app input[type="search"] { inline-size: 100%; }
+
+.fta-muted { margin: 0; color: var(--fta-color-text-secondary); font-size: var(--fta-type-base); }
+
+.fta-empty {
+  margin: 0;
+  padding: var(--fta-space-4) var(--fta-space-2);
+  font-size: var(--fta-type-base);
+  font-style: italic;
+  color: var(--fta-color-text-secondary);
+}
+
+.fta-empty > i { margin-inline-end: var(--fta-space-2); font-style: normal; }
+
+/* Cadres : les cartes de la page Général de RTA. */
+.fta-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fta-gap-block);
+}
+
+.fta-cards--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+}
+
+.fta-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fta-gap-row);
+  min-inline-size: 0;
+  padding: var(--fta-space-6) var(--fta-space-8);
+  border: 1px solid var(--fta-color-border);
+  border-radius: var(--fta-radius-panel);
+  background: var(--fta-color-frame);
+}
+
+.fta-card h4 {
+  margin: 0;
+  border: 0;
+  font-size: var(--fta-type-control);
+  font-weight: 700;
+}
+
+.fta-card h4 > i { margin-inline-end: var(--fta-space-4); color: var(--fta-accent); opacity: .85; }
+
+.fta-card > button { align-self: flex-start; inline-size: auto; }
+
+/* Bannière d'identité d'un élément édité (scène) : aperçu image et titre. */
+.fta-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--fta-gap-block);
+  margin-block-end: var(--fta-gap-tight);
+}
+
+.fta-banner__image {
+  display: grid;
+  flex: none;
+  place-items: center;
+  inline-size: 72px;
+  block-size: 72px;
+  border: 1px dashed var(--fta-color-border);
+  border-radius: var(--fta-radius-compact);
+  font-size: var(--fta-type-heading);
+  color: var(--fta-color-text-secondary);
+}
+
+.fta-banner h3 { margin: 0 0 var(--fta-space-2); border: 0; font-size: var(--fta-type-medium); }
+
+.fta-actions-row { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--fta-gap-row); margin-block-start: var(--fta-gap-block); }
+.fta-actions-row > button { inline-size: auto; flex: none; }
+
+/* Badges (rta-ruleset-badge). */
+.fta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--fta-gap-tight);
+  flex-shrink: 0;
+  min-block-size: 20px;
+  padding: var(--fta-space-1) var(--fta-space-3);
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: var(--fta-radius-rail);
+  background: var(--fta-color-badge-fill);
+  color: var(--fta-color-badge-text);
+  font-size: var(--fta-type-xs);
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.fta-badge--success,
+.fta-badge--version {
+  background: var(--fta-color-success-fill);
+  color: var(--fta-color-success-text);
+}
+
+/* Barre d'outils de la Bibliothèque : recherche, bascule tuiles/lignes, création. */
+.fta-toolbar {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--fta-gap-row);
+}
+
+.fta-toolbar__search { flex: 1 1 14rem; inline-size: auto; }
+.fta-toolbar > button { flex: none; inline-size: auto; }
+
+.fta-display-switch { display: inline-flex; align-items: center; gap: var(--fta-gap-tight); flex-shrink: 0; }
+
+.fta-display-switch button {
+  display: grid;
+  place-items: center;
+  inline-size: 30px;
+  min-inline-size: 30px;
+  block-size: 29px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--fta-color-border);
+  border-radius: var(--fta-radius-compact);
+  background: transparent;
+}
+
+.fta-display-switch button.is-active {
+  border-color: var(--fta-accent);
+  background: color-mix(in srgb, var(--fta-accent) 22%, transparent);
+}
+
+/* Tuiles (rta-ruleset-tile) : 282 × 94, titre sur deux lignes, badges en bas à gauche, actions en bas à droite. */
+.fta-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 282px);
+  align-content: start;
+  justify-content: start;
+  gap: var(--fta-gap-block);
+  padding-block: var(--fta-space-4);
+}
+
+.fta-tile {
+  position: relative;
+  box-sizing: border-box;
+  inline-size: 282px;
+  block-size: 94px;
+  padding: var(--fta-space-5) var(--fta-space-6) var(--fta-space-4);
+  overflow: hidden;
+  border: 1px solid var(--fta-color-border);
+  border-inline-start: 4px solid var(--fta-accent);
+  border-radius: var(--fta-radius-compact);
+  background: var(--fta-color-tile);
+}
+
+.fta-tile__title {
+  display: -webkit-box;
+  inline-size: 100%;
+  block-size: 2.7rem;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--fta-color-text-highlight);
+  font-size: var(--fta-type-medium);
+  font-weight: 700;
+  line-height: 1.35rem;
+  text-align: start;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  cursor: pointer;
+}
+
+.fta-tile__title:hover { text-decoration: underline; box-shadow: none; }
+
+.fta-tile__badges {
+  position: absolute;
+  inset-inline-start: .7rem;
+  inset-block-end: .5rem;
+  display: flex;
+  gap: var(--fta-gap-tight);
+  max-inline-size: calc(100% - 4rem);
+  overflow: hidden;
+}
+
+.fta-tile__actions {
+  position: absolute;
+  inset-inline-end: .7rem;
+  inset-block-end: .5rem;
+  display: flex;
+  gap: var(--fta-gap-tight);
+}
+
+/* Mode lignes : une tuile par ligne, titre puis badges puis actions. */
+.fta-tiles--lines { grid-template-columns: minmax(0, 1fr); gap: var(--fta-gap-tight); }
+
+.fta-tiles--lines .fta-tile {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content max-content;
+  align-items: center;
+  gap: var(--fta-gap-row);
+  inline-size: 100%;
+  block-size: auto;
+  min-block-size: 36px;
+  padding-block: var(--fta-space-3);
+}
+
+.fta-tiles--lines :is(.fta-tile__badges, .fta-tile__actions) { position: static; max-inline-size: none; }
+.fta-tiles--lines .fta-tile__title { block-size: auto; -webkit-line-clamp: 1; line-clamp: 1; }
+
+/* Tiroirs repliables du catalogue et de la campagne : en-tête avec icône, libellé et compteur. */
+.fta-drawer {
+  border: 1px solid var(--fta-color-border-secondary);
+  border-radius: var(--fta-radius-compact);
+  background: var(--fta-color-frame);
+}
+
+.fta-drawer > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--fta-gap-row);
+  padding: var(--fta-space-3) var(--fta-space-4);
+  font-size: var(--fta-type-base);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.fta-drawer > summary::-webkit-details-marker { display: none; }
+
+.fta-drawer > summary::before {
+  flex: none;
+  font-family: var(--font-awesome, "Font Awesome 6 Pro");
+  font-size: var(--fta-type-xs);
+  font-weight: 900;
+  content: "\f054";
+  opacity: .5;
+  transition: transform .15s;
+}
+
+.fta-drawer[open] > summary::before { transform: rotate(90deg); }
+.fta-drawer > summary > i { flex: 0 0 16px; text-align: center; color: var(--fta-accent); opacity: .85; }
+.fta-drawer > summary > span:first-of-type { flex: 1; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.fta-count {
+  flex: none;
+  min-inline-size: 1.4rem;
+  padding: 0 var(--fta-space-2);
+  border-radius: var(--fta-radius-rail);
+  background: var(--fta-color-badge-fill);
+  color: var(--fta-color-badge-text);
+  font-size: var(--fta-type-xs);
+  text-align: center;
+}
+
+.fta-drawer > .fta-empty { padding-inline: var(--fta-space-4); border-block-start: 1px solid var(--fta-color-border-subtle); }
+
+/* Horloge MAINTENANT de l'onglet Temps. */
+.fta-now {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fta-space-1);
+  padding: var(--fta-space-4) var(--fta-space-5);
+  border: 1px solid var(--fta-color-border);
+  border-inline-start: 4px solid var(--fta-accent);
+  border-radius: var(--fta-radius-compact);
+}
+
+.fta-now__label { font-size: var(--fta-type-xs); font-weight: 700; letter-spacing: .08em; }
+
+/* Pied de l'accueil et barre des PJ de l'éditeur (instance de campagne). */
+.fta-footer,
+.fta-party-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--fta-gap-row);
+  padding-block: var(--fta-space-3) 0;
+  border-block-start: 1px solid var(--fta-color-border);
+  font-size: var(--fta-type-sm);
+  color: var(--fta-color-text-secondary);
+}
+
+.fta-party-bar__label { font-weight: 700; color: var(--fta-color-text); }
+.fta-pane > button,
+.fta-pane > .tab > button { inline-size: auto; align-self: flex-start; }

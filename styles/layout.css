@@ -1,0 +1,175 @@
+/* Forge Them'All — layout.css : coquille des fenêtres et zones à défilement indépendant.
+   Comme l'éditeur de feuille de Rule Them'All : la fenêtre est découpée en zones qui défilent chacune seule, entre le
+   titre (en-tête et onglets toujours visibles) et le pied. Les panneaux gauche (navigation de l'onglet) et droit
+   (catalogue permanent) se règlent en largeur par la barre qui les sépare de la zone centrale. Une fenêtre étroite
+   empile les trois zones dans un seul défilement. */
+
+/* Le contenu de la fenêtre ne défile pas : ce sont ses zones qui défilent. */
+.application.fta-window .window-content {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 0;
+  overflow: hidden;
+  padding: var(--fta-space-4) var(--fta-space-6) var(--fta-space-4);
+}
+
+.fta-app {
+  container: fta-window / inline-size;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--fta-gap-row);
+  inline-size: 100%;
+  min-block-size: 0;
+}
+
+.fta-app > :is(.fta-header, .fta-tabs, .fta-footer, .fta-party-bar) {
+  flex: none;
+}
+
+/* Un onglet de l'accueil occupe toute la hauteur restante ; les onglets inactifs sont retirés du flux. */
+.fta-app .tab[data-group]:not(.active) {
+  display: none;
+}
+
+.fta-app > .fta-tab-body.active {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
+}
+
+/* Trois zones : navigation | barre | centre | barre | catalogue. Chacune défile seule. */
+.fta-panes {
+  display: grid;
+  flex: 1;
+  grid-template-areas: "left left-bar center right-bar right";
+  grid-template-columns: var(--fta-left-width) var(--fta-bar-width) minmax(0, 1fr) var(--fta-bar-width) var(--fta-right-width);
+  grid-template-rows: minmax(0, 1fr);
+  min-block-size: 0;
+  overflow: hidden;
+  border-block-start: 1px solid var(--fta-color-border);
+}
+
+.fta-pane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fta-gap-row);
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--fta-space-4) var(--fta-space-2) var(--fta-space-6);
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+}
+
+.fta-pane--left { grid-area: left; }
+.fta-pane--center { grid-area: center; padding-inline: var(--fta-space-4); }
+.fta-pane--right { grid-area: right; }
+.fta-resizer--left { grid-area: left-bar; }
+.fta-resizer--right { grid-area: right-bar; }
+
+/* Les sections d'onglet d'une zone suivent le même rythme que la zone elle-même. */
+.fta-pane > .tab.active {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fta-gap-row);
+}
+
+/* Un panneau masqué : sa colonne tombe à zéro, sa barre reste pour le rappeler. */
+.fta-app--hide-left .fta-panes { grid-template-columns: 0 var(--fta-bar-width) minmax(0, 1fr) var(--fta-bar-width) var(--fta-right-width); }
+.fta-app--hide-right .fta-panes { grid-template-columns: var(--fta-left-width) var(--fta-bar-width) minmax(0, 1fr) var(--fta-bar-width) 0; }
+.fta-app--hide-left.fta-app--hide-right .fta-panes { grid-template-columns: 0 var(--fta-bar-width) minmax(0, 1fr) var(--fta-bar-width) 0; }
+.fta-app--hide-left .fta-pane--left,
+.fta-app--hide-right .fta-pane--right { display: none; }
+
+/* Une barre est une ligne fine que le pointeur glisse ; son bouton est en haut. */
+.fta-resizer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block-start: var(--fta-space-4);
+  cursor: col-resize;
+  touch-action: none;
+  outline: none;
+}
+
+.fta-resizer::before {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 50%;
+  border-inline-start: 1px solid var(--fta-color-border);
+  content: "";
+}
+
+.fta-resizer:is(:hover, :focus-visible, [data-pane-dragging])::before {
+  border-inline-start-color: var(--fta-accent);
+  border-inline-start-width: 2px;
+}
+
+.fta-app--hide-left .fta-resizer--left,
+.fta-app--hide-right .fta-resizer--right { cursor: default; }
+
+.fta-resizer__toggle {
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  inline-size: var(--fta-space-6);
+  block-size: calc(var(--fta-space-6) * 2);
+  min-block-size: 0;
+  margin: 0;
+  padding: 0;
+  border-radius: var(--fta-radius-compact);
+  font-size: var(--fta-type-micro);
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Une zone unique (Bibliothèque) : barre d'outils fixe, contenu qui défile. */
+.fta-single {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--fta-gap-row);
+  min-block-size: 0;
+  padding-block-start: var(--fta-space-4);
+  border-block-start: 1px solid var(--fta-color-border);
+}
+
+.fta-single__scroll {
+  flex: 1;
+  min-block-size: 0;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+}
+
+/* Fenêtre étroite : un seul défilement pour les trois zones, sans barres. */
+@container fta-window (inline-size < 640px) {
+  .fta-app .fta-panes {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  /* Un panneau masqué revient : sans barre, rien ne permettrait de le rouvrir. */
+  .fta-app .fta-pane {
+    display: flex;
+    flex: none;
+    overflow: visible;
+  }
+
+  .fta-app :is(.fta-pane--center, .fta-pane--right) {
+    border-block-start: 1px solid var(--fta-color-border);
+  }
+
+  .fta-app .fta-resizer { display: none; }
+}
+
+/* Dans l'éditeur, le catalogue est plus étroit pour laisser la place au texte. */
+.fta-editor { --fta-right-width: 16rem; }
