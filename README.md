@@ -1,6 +1,6 @@
-# RWF — Atelier du MJ
+# Forge Them'All
 
-Futur module **Foundry VTT v14** destiné au meneur de jeu : préparation et conduite de campagnes et de scénarios, suivi du temps, estimation des rencontres et gestion des révélations faites aux joueurs.
+**Forge Them'All** (id `forge-them-all`) est un futur module **Foundry VTT v14** destiné au meneur de jeu : préparation et conduite de campagnes et de scénarios, suivi du temps, estimation des rencontres et gestion des révélations faites aux joueurs.
 
 > **Statut : conception.** Aucune ligne de code n'est encore écrite. Le module reprend les idées de l'ancien Atelier intégré au système Real World Fantasy (v0.1.451 / v0.1.475), mais il est reconstruit de zéro et ne dépend plus du système de jeu actif.
 
@@ -15,7 +15,7 @@ Futur module **Foundry VTT v14** destiné au meneur de jeu : préparation et con
 
 ## Interface
 
-L'Atelier principal propose trois espaces : **Fantaisies**, **Bibliothèque de scénarios** et **Gestion des campagnes**.
+La fenêtre principale propose trois espaces : **Fantaisies**, **Bibliothèque de scénarios** et **Gestion des campagnes**.
 
 L'éditeur de scénario est le même pour les sources et les instances. Il comporte trois panneaux (dossiers, élément édité, catalogue de ressources) et six onglets :
 
@@ -30,11 +30,11 @@ L'éditeur de scénario est le même pour les sources et les instances. Il compo
 
 ## Carnet d'enquête des PJ
 
-C'est l'interface côté joueurs, séparée de l'Atelier. Elle a quatre onglets : *Enquête & Pistes* (un tableau collaboratif unique par campagne, avec des positions propres à chaque joueur), *Contacts*, *Indices & Documents* et *Chronologie*. Les notes et les hypothèses sont privées par défaut et ne deviennent jamais la vérité du MJ. Le MJ les consulte en lecture seule.
+C'est l'interface côté joueurs, séparée de la fenêtre du MJ. Elle a quatre onglets : *Enquête & Pistes* (un tableau collaboratif unique par campagne, avec des positions propres à chaque joueur), *Contacts*, *Indices & Documents* et *Chronologie*. Les notes et les hypothèses sont privées par défaut et ne deviennent jamais la vérité du MJ. Le MJ les consulte en lecture seule.
 
 ## Intégration Rule Them'All
 
-Rule Them'All reste propriétaire de la création et de la synchronisation des contenus (Actors, Items, Fantaisies, compendiums). L'Atelier lui demande un import sélectif : il simule d'abord, puis applique après confirmation, de façon atomique et idempotente. Les contenus restent locaux au scénario jusqu'à une publication volontaire. Une mise à jour externe produit toujours un diff, jamais un écrasement silencieux.
+Rule Them'All reste propriétaire de la création et de la synchronisation des contenus (Actors, Items, Fantaisies, compendiums). Forge Them'All lui demande un import sélectif : il simule d'abord, puis applique après confirmation, de façon atomique et idempotente. Les contenus restent locaux au scénario jusqu'à une publication volontaire. Une mise à jour externe produit toujours un diff, jamais un écrasement silencieux.
 
 ## Feuille de route
 
