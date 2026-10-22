@@ -1,61 +1,48 @@
-# Forge Them'All
+# Forge Them'All — socle Foundry v14 — v0.0.2
 
-**Forge Them'All** (id `forge-them-all`) est un futur module **Foundry VTT v14** destiné au meneur de jeu : préparation et conduite de campagnes et de scénarios, suivi du temps, estimation des rencontres et gestion des révélations faites aux joueurs.
+## Changements v0.0.2
+Renommage du module « Atelier du MJ » en **Forge Them'All** : id `forge-them-all` (ancien `atelier-du-mj`), dossier `forge-them-all/`, API `game.forgeThemAll` (ancienne `game.atelierMJ`). Aucun autre changement fonctionnel. Les réglages enregistrés sous l'ancien id ne sont pas repris (prototype sans données).
 
-> **Statut : conception.** Seul un socle de navigation (v0.0.2) existe. Le module reprend les idées de l'ancien Atelier intégré au système Real World Fantasy (v0.1.451 / v0.1.475), mais il est reconstruit de zéro et ne dépend plus du système de jeu actif.
+## Statut
+Prototype de structure et de navigation, non fonctionnel métier, **sans aucun CSS personnalisé**.
+Toutes les fenêtres héritent de `HandlebarsApplicationMixin(ApplicationV2)` et utilisent des éléments HTML natifs rendus par Foundry.
+Pas de `styles`, pas de fichier `.css`, pas de styles inline, pas de classes CSS spécifiques.
 
-## Principes
+## Installation locale
+Décompresser l'archive dans `Data/modules/` pour obtenir `Data/modules/forge-them-all/module.json`.
+Activer le module depuis la gestion des modules d'un monde Foundry v14.
+Le système de jeu actif peut être RWF ou un autre système.
 
-- **Module autonome**, basé sur les composants natifs de Foundry v14 (ApplicationV2, DialogV2). Le CSS historique n'est pas repris.
-- **Bibliothèque et campagnes.** Un scénario *source* vit dans la bibliothèque. L'ajouter à une campagne crée une *instance* autonome : une seule par campagne, et sans effet en retour sur la source.
-- **Continuité de campagne.** Chaque PNJ ou objet a une seule identité persistante d'un scénario à l'autre. Il n'y a jamais de rapprochement par le seul nom.
-- **Structure libre.** Les actes et les dossiers sont facultatifs, et l'on peut créer une scène improvisée en une action.
-- **Rien d'automatique sans le MJ.** Aucune révélation, aucun combat lancé ni aucun effet temporel appliqué sans prévisualisation et confirmation.
-- **Secrets protégés côté serveur.** Un joueur ne reçoit que les données auxquelles il a droit : masquer du HTML ne suffit pas.
+## Ouvrir
+MJ : créer une macro *Script* contenant `game.forgeThemAll.open();`, puis l'exécuter.
+Un bouton de commodité est ajouté au répertoire des Journaux si le hook natif `renderJournalDirectory` est exécuté sur l'installation.
 
-## Interface
+## Navigation
+- Accueil : Fantaisies / Bibliothèque de scénarios / Gestion des campagnes.
+- Depuis Bibliothèque ou Campagnes : bouton ouvrant **une fenêtre indépendante** de l'éditeur.
+- Éditeur : Écriture / Cartes / Partie / Temps / Rencontres / Enquête & Pistes.
+- Panneaux : navigation gauche / zone centrale / catalogue droit (mise en page native rudimentaire par tableau temporaire).
 
-La fenêtre principale propose trois espaces : **Fantaisies**, **Bibliothèque de scénarios** et **Gestion des campagnes**.
+## Paramètres
+`Activer les Fantaisies` (world, MJ), activé par défaut. Aucun autre domaine métier n'est désactivable.
+Le dernier onglet d'accueil est mémorisé en réglage client (aucune donnée sensible).
 
-L'éditeur de scénario est le même pour les sources et les instances. Il comporte trois panneaux (dossiers, élément édité, catalogue de ressources) et six onglets :
+## Interfaces
+`game.forgeThemAll.open()` ; `game.forgeThemAll.getRuleThemAll()` ; `game.forgeThemAll.fantasiesEnabled`.
+Rule Them'All est recommandé, mais absent => accès aux autres fonctionnalités conservé.
+Le branchement au catalogue Fantaisies attend un **contrat public vérifié** ; aucune lecture de structures privées.
 
-| Onglet | Rôle |
-|---|---|
-| **Écriture** | Scènes narratives : déroulement, notes privées du MJ, texte joueurs, supports visuels |
-| **Cartes** | Plans, images et Scenes Foundry associés à 0..N scènes |
-| **Partie** | Conduite de séance : scène en cours, notes rapides, événements consignés |
-| **Temps** | Horloge « MAINTENANT » de campagne, calendrier adaptable, échéances et effets à confirmer |
-| **Rencontres** | Calculateur de puissance et de menace, puis commande « Mettre en scène » (tokens et combat préparés, sans démarrage) |
-| **Enquête & Pistes** | Faits révélables, révélations ciblées par PJ, matrice des connaissances, journal de provenance |
+## Hors périmètre v0.0.2
+Scénarios persistés ; campagnes ; dossiers ; catalogue ; glisser-déposer ; gestion des droits et secrets ; horloge ; moteur de puissance ; tokenisation et combats ; révélations ; synchronisation RTA.
+**Ne pas utiliser le prototype comme stockage de données de jeu** : les affichages sont non connectés.
 
-## Carnet d'enquête des PJ
+## Vérifications manuelles dans Foundry v14
+1. Installer et activer le module avec un système autre que RWF.
+2. Ouvrir la fenêtre avec `game.forgeThemAll.open()` et naviguer dans les trois sections.
+3. Ouvrir l'éditeur depuis Bibliothèque ; naviguer dans les six onglets.
+4. Désactiver Fantaisies dans les paramètres du module ; les deux autres sections restent accessibles.
+5. Tester avec et sans Rule Them'All actif.
+6. Vérifier qu'aucun changement de scène, de token, de combat ou de donnée n'a lieu.
 
-C'est l'interface côté joueurs, séparée de la fenêtre du MJ. Elle a quatre onglets : *Enquête & Pistes* (un tableau collaboratif unique par campagne, avec des positions propres à chaque joueur), *Contacts*, *Indices & Documents* et *Chronologie*. Les notes et les hypothèses sont privées par défaut et ne deviennent jamais la vérité du MJ. Le MJ les consulte en lecture seule.
-
-## Intégration Rule Them'All
-
-Rule Them'All reste propriétaire de la création et de la synchronisation des contenus (Actors, Items, Fantaisies, compendiums). Forge Them'All lui demande un import sélectif : il simule d'abord, puis applique après confirmation, de façon atomique et idempotente. Les contenus restent locaux au scénario jusqu'à une publication volontaire. Une mise à jour externe produit toujours un diff, jamais un écrasement silencieux.
-
-## Feuille de route
-
-1. **Socle et preuves de concept v14** : persistance, projection sécurisée, fenêtres natives, tokens et combats.
-2. **Données** : campagnes, scénarios, ressources, idempotence.
-3. **Écriture, Cartes, Partie.**
-4. **Temps.**
-5. **Rencontres** et « Mettre en scène ».
-6. **Enquête et Carnet des joueurs.**
-7. **Intégration Rule Them'All.**
-8. **Recette** multi-utilisateurs et non-régression.
-
-## Documents de conception
-
-- Audit historique et architecture cible (source v0.1.451)
-- Atlas de structure des fenêtres v0.4 (source v0.1.475)
-- Contrats techniques d'implémentation v0.1
-- Consolidation fonctionnelle des six onglets
-- Carnet d'enquête des PJ, référentiel technique v0.1
-- Rule Them'All, exigences et contrat d'intégration v0.1
-
-## Contenu du dépôt
-
-Le dossier [`forge-them-all/`](forge-them-all/) contient le socle du module (v0.0.2, prototype de navigation ApplicationV2 sans CSS). Pour l'installer, copier ce dossier dans `Data/modules/` afin d'obtenir `Data/modules/forge-them-all/module.json`.
+## Limites de validation
+Structure ZIP et syntaxe JS vérifiables statiquement ; lancement UI réel et compatibilité des hooks nécessitent un test dans Foundry v14.
