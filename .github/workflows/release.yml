@@ -1,11 +1,13 @@
-# Publie une release GitHub quand un tag vX.Y.Z est poussé : vérifie que le tag correspond à la version de
-# module.json, construit forge-them-all.zip (dossier forge-them-all/ prêt pour Data/modules/) et l'attache
-# avec module.json.
+# Publie une release GitHub à chaque nouvelle version : quand module.json change sur main (ou à la demande),
+# si la release vX.Y.Z de sa version n'existe pas encore, construit forge-them-all.zip (dossier forge-them-all/
+# prêt pour Data/modules/), crée le tag et la release et y attache l'archive et module.json.
 name: Release
 
 on:
   push:
-    tags: ["v*"]
+    branches: [main]
+    paths: [module.json, .github/workflows/release.yml]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -16,23 +18,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Vérifier la version
+      - name: Lire la version
+        id: version
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          version=$(jq -r .version module.json)
-          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
-            echo "::error::Le tag $GITHUB_REF_NAME ne correspond pas à module.json ($version)"
-            exit 1
+          tag="v$(jq -r .version module.json)"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "La release $tag existe déjà : rien à publier."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Construire l'archive
+        if: steps.version.outputs.exists != 'true'
         run: |
           mkdir -p dist/forge-them-all
           cp -r module.json README.md lang module styles templates dist/forge-them-all/
           (cd dist && zip -r forge-them-all.zip forge-them-all)
 
       - name: Créer la release
+        if: steps.version.outputs.exists != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
         run: |
-          gh release create "$GITHUB_REF_NAME" dist/forge-them-all.zip module.json \
-            --title "Forge Them'All $GITHUB_REF_NAME" --generate-notes --prerelease
+          gh release create "$TAG" dist/forge-them-all.zip module.json --target "$GITHUB_SHA" \
+            --title "Forge Them'All $TAG" --generate-notes --prerelease
