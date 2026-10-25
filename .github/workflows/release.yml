@@ -1,6 +1,6 @@
 # Publie une release GitHub à chaque nouvelle version : quand module.json change sur main (ou à la demande),
-# si la release vX.Y.Z de sa version n'existe pas encore, construit forge-them-all.zip (dossier forge-them-all/
-# prêt pour Data/modules/), crée le tag et la release (dernière version, visible
+# si la release vX.Y.Z de sa version n'existe pas encore, construit forge-them-all.zip (fichiers du module à la
+# racine, comme l'attend l'installation par manifest de Foundry), crée le tag et la release (dernière version, visible
 # dans la colonne du dépôt) et y attache l'archive et module.json.
 name: Release
 
@@ -34,10 +34,17 @@ jobs:
 
       - name: Construire l'archive
         if: steps.version.outputs.exists != 'true'
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
         run: |
-          mkdir -p dist/forge-them-all
-          cp -r module.json README.md lang module styles templates dist/forge-them-all/
-          (cd dist && zip -r forge-them-all.zip forge-them-all)
+          # Le lien de téléchargement suit toujours la version publiée, même si module.json n'a pas été mis à jour.
+          download="https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/forge-them-all.zip"
+          jq --arg download "$download" '.download = $download' module.json > module.release.json
+          mkdir -p dist/pkg
+          cp -r README.md lang module styles templates dist/pkg/
+          cp module.release.json dist/pkg/module.json
+          cp module.release.json dist/module.json
+          (cd dist/pkg && zip -r ../forge-them-all.zip .)
 
       - name: Créer la release
         if: steps.version.outputs.exists != 'true'
@@ -45,5 +52,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.version.outputs.tag }}
         run: |
-          gh release create "$TAG" dist/forge-them-all.zip module.json --target "$GITHUB_SHA" \
+          gh release create "$TAG" dist/forge-them-all.zip dist/module.json --target "$GITHUB_SHA" \
             --title "Forge Them'All $TAG" --generate-notes --latest

@@ -3,13 +3,16 @@
   "type": "module",
   "title": "Forge Them'All",
   "description": "Atelier du MJ universel pour Foundry VTT v14 : Fantaisies, bibliothèque de scénarios et campagnes. Prototype de navigation, identité visuelle de Rule Them'All.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "authors": [
     {
       "name": "Luca",
       "url": "https://github.com/ScallDePell"
     }
   ],
+  "url": "https://github.com/ScallDePell/forge-them-all",
+  "manifest": "https://github.com/ScallDePell/forge-them-all/releases/latest/download/module.json",
+  "download": "https://github.com/ScallDePell/forge-them-all/releases/download/v0.0.4/forge-them-all.zip",
   "compatibility": {
     "minimum": "14",
     "verified": "14"

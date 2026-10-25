@@ -1,4 +1,7 @@
-# Forge Them'All — socle Foundry v14 — v0.0.3
+# Forge Them'All — socle Foundry v14 — v0.0.4
+
+## Changements v0.0.4
+- **Installation par manifest** : `module.json` déclare `url`, `manifest` (dernière release) et `download` ; chaque release GitHub attache le zip et le manifest. Le zip contient désormais les fichiers du module à sa racine. Aucun changement fonctionnel.
 
 ## Changements v0.0.3
 - **Identité visuelle de Rule Them'All** : échelle d'espacements, typographie, couleurs (suivant le thème Foundry), onglets façon explorateur, cadres, tuiles 282 × 94, badges et bascule tuiles/lignes reprises de RTA v1.0.20 sous le préfixe `--fta-` (`styles/tokens.css`, `layout.css`, `components.css`). Aucun CSS de l'ancien RWF v0.1.475.
@@ -14,8 +17,11 @@ Renommage du module « Atelier du MJ » en **Forge Them'All** : id `forge-them-a
 Prototype de structure et de navigation, non fonctionnel métier.
 Toutes les fenêtres héritent de `HandlebarsApplicationMixin(ApplicationV2)`. Le CSS se limite à la mise en page et à l'identité visuelle de Rule Them'All ; les champs et boutons restent ceux de Foundry.
 
-## Installation locale
-Décompresser l'archive dans `Data/modules/` pour obtenir `Data/modules/forge-them-all/module.json`.
+## Installation
+Dans Foundry : *Installer un module* → coller l'URL du manifest
+`https://github.com/ScallDePell/forge-them-all/releases/latest/download/module.json`.
+
+À la main : télécharger `forge-them-all.zip` depuis la dernière release et le décompresser dans un dossier `Data/modules/forge-them-all/` (le zip contient les fichiers du module à sa racine).
 Activer le module depuis la gestion des modules d'un monde Foundry v14.
 Le système de jeu actif peut être RWF ou un autre système.
 
