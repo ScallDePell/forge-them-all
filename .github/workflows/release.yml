@@ -1,6 +1,7 @@
 # Publie une release GitHub à chaque nouvelle version : quand module.json change sur main (ou à la demande),
 # si la release vX.Y.Z de sa version n'existe pas encore, construit forge-them-all.zip (dossier forge-them-all/
-# prêt pour Data/modules/), crée le tag et la release et y attache l'archive et module.json.
+# prêt pour Data/modules/), crée le tag et la release (dernière version, visible
+# dans la colonne du dépôt) et y attache l'archive et module.json.
 name: Release
 
 on:
@@ -26,7 +27,8 @@ jobs:
           tag="v$(jq -r .version module.json)"
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
           if gh release view "$tag" >/dev/null 2>&1; then
-            echo "La release $tag existe déjà : rien à publier."
+            echo "La release $tag existe déjà : on s'assure seulement qu'elle est publiée comme dernière version."
+            gh release edit "$tag" --prerelease=false --latest
             echo "exists=true" >> "$GITHUB_OUTPUT"
           fi
 
@@ -44,4 +46,4 @@ jobs:
           TAG: ${{ steps.version.outputs.tag }}
         run: |
           gh release create "$TAG" dist/forge-them-all.zip module.json --target "$GITHUB_SHA" \
-            --title "Forge Them'All $TAG" --generate-notes --prerelease
+            --title "Forge Them'All $TAG" --generate-notes --latest
